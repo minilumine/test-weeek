@@ -1,9 +1,14 @@
 <template>
   <div class="CompanyDetailsForm">
-    <ValidationProvider rules="required|digits:13" v-slot="{ errors }">
-      <input v-model="inn" type="text" name="ИНН">
-      <span>{{ errors[0] }}</span>
-    </ValidationProvider>
+    <form>
+      <div class="CompanyDetailsForm__row">
+        <label>
+          <input v-model="inn" :class="{ empty: inn.length == 0 }" type="text" name="ИНН" />
+          <span>ИНН</span>
+        </label>
+        <input class="input--text" type="text" name="БИК" />
+      </div>
+    </form>
   </div>
 </template>
 
@@ -21,6 +26,13 @@ import '@/utils/CompanyDetailsForm-validate'
   },
 })
 export default class Home extends Vue {
-  inn = ''
+  inn = 'dfgdf'
 }
 </script>
+
+<style lang="scss">
+.CompanyDetailsForm {
+  max-width: 750px;
+  margin: 0 auto;
+}
+</style>

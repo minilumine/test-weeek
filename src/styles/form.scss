@@ -1,0 +1,40 @@
+form {
+
+  input[type='text'] {
+    padding: 24px 16px 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f3f4f5;
+    font-size: 1rem;
+
+    &:focus {
+      outline-color: yellow;
+    }
+  }
+
+  label {
+    position: relative;
+
+    input[type='text'] {
+
+      & + span {
+        position: absolute;
+        top: -8px;
+        left: 16px;
+        font-size: 1em;
+        transition: all 0.1s;
+      }
+
+      &:focus + span {
+        top: -16px;
+        font-size: 0.8em;
+      }
+
+      &:not(.empty) + span {
+        top: -16px;
+        font-size: 0.8em;
+      }
+    }
+  }
+}
+
