@@ -1,31 +1,20 @@
 <template>
-  <div class="CompanyDetailsForm">
-    <form>
-      <label>
-        <input v-model="inn" :class="{ empty: inn.length == 0 }" type="text" />
-        <span>ИНН</span>
-      </label>
-      <label>
-        <input v-model="bik" :class="{ empty: bik.length == 0 }" type="text" />
-        <span>БИК</span>
-      </label>
-
-      <label>
-        <input v-model="bik" :class="{ empty: bik.length == 0 }" type="text" />
-        <span>БИК</span>
-      </label>
-
-      <label>
-        <input v-model="fullName" :class="{ empty: fullName.length == 0 }" type="text" />
-        <span>Полное наименование организации</span>
-      </label>
-
-      <label>
-        <input v-model="shortName" :class="{ empty: shortName.length == 0 }" type="text" />
-        <span>Сокращенное наименование организации</span>
-      </label>
-    </form>
-  </div>
+  <form class="CompanyDetailsForm form">
+    <label
+      class="form__elem"
+      v-for="{ name, label } of structure"
+      :key="name"
+      :style="{ 'grid-area': name }"
+    >
+      <input
+        type="text"
+        v-model="data[name]"
+        class="form__input"
+        :class="{ 'form__input--no-empty': data[name].length !== 0 }"
+      />
+      <span class="form__label">{{ label }}</span>
+    </label>
+  </form>
 </template>
 
 <script>
@@ -41,14 +30,28 @@ import '@/utils/CompanyDetailsForm-validate'
     ValidationProvider,
   },
 })
-export default class Home extends Vue {
-  inn = ''
-  bik = ''
-  fullName = ''
-  shortName = ''
-  legalAddress = ''
-  actualAddress = ''
-  mailingAddress = ''
+export default class CompanyDetailsForm extends Vue {
+  data = {}
+
+  structure = [
+    { name: 'inn', label: 'ИНН' },
+    { name: 'bik', label: 'БИК' },
+    { name: 'fullName', label: 'Полное наименование организации' },
+    { name: 'shortName', label: 'Сокращенное наименование организации' },
+    { name: 'legalAddress', label: 'Юридический адрес' },
+    { name: 'actualAddress', label: 'Фактический адрес' },
+    { name: 'mailingAddress', label: 'Почтовый адрес' },
+    { name: 'okpo', label: 'ОКПО' },
+    { name: 'ogrnip', label: 'ОГРНИП' },
+    { name: 'oktmo', label: 'ОКТМО' },
+    { name: 'okato', label: 'ОКАТО' },
+  ]
+
+  created() {
+    for ({ name } of this.structure) {
+      this.data[name] = ''
+    }
+  }
 }
 </script>
 
@@ -56,5 +59,14 @@ export default class Home extends Vue {
 .CompanyDetailsForm {
   max-width: 750px;
   margin: 0 auto;
+  grid-template-areas:
+    'inn bik'
+    'fullName fullName'
+    'shortName shortName'
+    'legalAddress legalAddress'
+    'actualAddress actualAddress'
+    'mailingAddress mailingAddress'
+    'okpo ogrnip'
+    'oktmo okato';
 }
 </style>

@@ -17,3 +17,9 @@ import CompanyDetailsForm from './CompanyDetailsForm'
 })
 export default class Home extends Vue {}
 </script>
+
+<style lang="scss">
+.App {
+  font-family: 'Golos', sans-serif;
+}
+</style>

@@ -1,47 +1,37 @@
-form {
+.form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 20px 10px;
-  
-  input[type='text'] {
+
+  &__elem {
+    position: relative;
+    display: block;
+  }
+
+  &__label {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    color: var(--grey-color-body-text);
+    font-size: 0.9em;
+    transition: all 0.1s;
+  }
+
+  &__input {
+    width: 100%;
     padding: 24px 16px 8px 16px;
     border: none;
     border-radius: 5px;
-    background-color: #f3f4f5;
+    background-color: var(--grey-color-body);
     font-size: 1rem;
 
     &:focus {
-      outline-color: yellow;
-      // outline-width: 10px;
+      outline-color: var(--yellow-color);
     }
   }
 
-  label {
-    position: relative;
-    display: block;
-    // width: 100%;
-    // overflow: hidden;
-
-    input[type='text'] {
-      width: 100%;
-
-      & + span {
-        position: absolute;
-        top: 12px;
-        left: 16px;
-        font-size: 1em;
-        transition: all 0.1s;
-      }
-
-      &:focus + span {
-        top: 8px;
-        font-size: 0.8em;
-      }
-
-      &:not(.empty) + span {
-        top: 8px;
-        font-size: 0.8em;
-      }
-    }
+  &__input:focus ~ &__label,
+  &__input--no-empty ~ &__label {
+    top: 7px;
+    font-size: 0.8em;
   }
 }

@@ -22,7 +22,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
 
-  context: __dirname,
+  context: path.resolve(__dirname, 'src'),
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
     alias: {
@@ -79,10 +79,11 @@ module.exports = {
           'style-loader',
           'css-loader',
           'sass-loader',
+          'postcss-loader',
         ],
       },
       {
-        test: /\.(png|jpe?g)$/,
+        test: /\.(png|jpe?g|ttf|eot|woff2?)$/,
         type: 'asset/resource',
         generator: {
           filename: 'icons/[name][ext]',
