@@ -1,13 +1,29 @@
 <template>
   <div class="CompanyDetailsForm">
     <form>
-      <div class="CompanyDetailsForm__row">
-        <label>
-          <input v-model="inn" :class="{ empty: inn.length == 0 }" type="text" name="ИНН" />
-          <span>ИНН</span>
-        </label>
-        <input class="input--text" type="text" name="БИК" />
-      </div>
+      <label>
+        <input v-model="inn" :class="{ empty: inn.length == 0 }" type="text" />
+        <span>ИНН</span>
+      </label>
+      <label>
+        <input v-model="bik" :class="{ empty: bik.length == 0 }" type="text" />
+        <span>БИК</span>
+      </label>
+
+      <label>
+        <input v-model="bik" :class="{ empty: bik.length == 0 }" type="text" />
+        <span>БИК</span>
+      </label>
+
+      <label>
+        <input v-model="fullName" :class="{ empty: fullName.length == 0 }" type="text" />
+        <span>Полное наименование организации</span>
+      </label>
+
+      <label>
+        <input v-model="shortName" :class="{ empty: shortName.length == 0 }" type="text" />
+        <span>Сокращенное наименование организации</span>
+      </label>
     </form>
   </div>
 </template>
@@ -26,7 +42,13 @@ import '@/utils/CompanyDetailsForm-validate'
   },
 })
 export default class Home extends Vue {
-  inn = 'dfgdf'
+  inn = ''
+  bik = ''
+  fullName = ''
+  shortName = ''
+  legalAddress = ''
+  actualAddress = ''
+  mailingAddress = ''
 }
 </script>
 
