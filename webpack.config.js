@@ -83,10 +83,17 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|ttf|eot|woff2?)$/,
+        test: /\.(png|jpe?g)$/,
         type: 'asset/resource',
         generator: {
           filename: 'icons/[name][ext]',
+        },
+      },
+      {
+        test: /\.(ttf|eot|woff2?)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]',
         },
       },
     ],

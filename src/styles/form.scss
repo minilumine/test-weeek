@@ -7,15 +7,6 @@
     display: block;
   }
 
-  &__label {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    color: var(--grey-color-body-text);
-    font-size: 0.9em;
-    transition: all 0.1s;
-  }
-
   &__input {
     width: 100%;
     padding: 24px 16px 8px 16px;
@@ -29,9 +20,73 @@
     }
   }
 
+  &__label {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    color: var(--grey-color-text-body);
+    font-size: 0.9em;
+    transition: all 0.1s;
+  }
+
   &__input:focus ~ &__label,
   &__input--no-empty ~ &__label {
     top: 7px;
     font-size: 0.8em;
+  }
+
+  &__help-icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    right: 16px;
+    top: 14px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--grey-color-text-body);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &::before {
+      content: '?';
+      position: absolute;
+      left: 6px;
+      color: var(--grey-color-body);
+      font-size: 0.9em;
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    z-index: 3;
+    // left: 0;
+    // right: 0;
+    bottom: 30px;
+    // margin: auto;
+    width: max-content;
+    padding: 5px 10px;
+    background-color: var(--grey-color-text-body);
+    border-radius: 3px;
+    color: white;
+    font-size: 0.8em;
+    visibility: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      // visibility: visible;
+      background-color: var(--grey-color-text-body);
+    }
+  }
+
+  &__help-icon:hover &__tooltip {
+    visibility: visible;
   }
 }
