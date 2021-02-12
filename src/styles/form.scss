@@ -12,8 +12,7 @@
     padding: 24px 16px 8px 16px;
     border: none;
     border-radius: 5px;
-    background-color: var(--grey-color-body);
-    font-size: 1rem;
+    background-color: var(--grey-color-elem);
 
     &:focus {
       outline-color: var(--yellow-color);
@@ -25,7 +24,6 @@
     top: 14px;
     left: 16px;
     color: var(--grey-color-text-body);
-    font-size: 0.9em;
     transition: all 0.1s;
   }
 
@@ -50,19 +48,16 @@
     &::before {
       content: '?';
       position: absolute;
-      left: 6px;
+      left: 7px;
       color: var(--grey-color-body);
-      font-size: 0.9em;
+
     }
   }
 
   &__tooltip {
     position: absolute;
-    z-index: 3;
-    // left: 0;
-    // right: 0;
+    z-index: 2;
     bottom: 30px;
-    // margin: auto;
     width: max-content;
     padding: 5px 10px;
     background-color: var(--grey-color-text-body);
@@ -75,13 +70,12 @@
       content: '';
       position: absolute;
       z-index: 1;
-      bottom: -5px;
+      bottom: -4px;
       left: calc(50% - 5px);
       width: 10px;
       height: 10px;
       border-radius: 2px;
       transform: rotate(45deg);
-      // visibility: visible;
       background-color: var(--grey-color-text-body);
     }
   }

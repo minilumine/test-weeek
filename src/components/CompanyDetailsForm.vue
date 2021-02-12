@@ -8,9 +8,9 @@
     >
       <input
         type="text"
-        v-model="data[name]"
+        v-model="output[name]"
         class="form__input"
-        :class="{ 'form__input--no-empty': data[name].length !== 0 }"
+        :class="{ 'form__input--no-empty': output[name].length !== 0 }"
       />
       <span class="form__label">{{ label }}</span>
       <div class="form__help-icon" v-if="tip">
@@ -34,7 +34,7 @@ import '@/utils/CompanyDetailsForm-validate'
   },
 })
 export default class CompanyDetailsForm extends Vue {
-  data = {}
+  output = {}
 
   structure = [
     { name: 'inn', label: 'ИНН', tip: 'Это про налоги' },
@@ -52,7 +52,7 @@ export default class CompanyDetailsForm extends Vue {
 
   created() {
     for (const { name } of this.structure) {
-      this.data[name] = ''
+      Vue.set(this.output, name, '')
     }
   }
 }
@@ -60,8 +60,7 @@ export default class CompanyDetailsForm extends Vue {
 
 <style lang="scss">
 .CompanyDetailsForm {
-  max-width: 750px;
-  margin: 0 auto;
+  padding: 30px 0;
   grid-template-areas:
     'inn bik'
     'fullName fullName'

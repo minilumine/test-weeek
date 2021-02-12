@@ -83,7 +83,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g)$/,
+        test: /\.(svg|png|jpe?g)$/,
         type: 'asset/resource',
         generator: {
           filename: 'icons/[name][ext]',
