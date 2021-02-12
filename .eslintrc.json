@@ -26,6 +26,8 @@
   },
   "plugins": ["vue", "jest", "prettier", "@typescript-eslint"],
   "rules": {
-    "semi": 0
+    "semi": 0,
+    "import/no-unresolved": 2,
+    "import/extensions": [{"js": "never", "ts": "never", "vue": "never" }]
   }
 }

@@ -1,13 +1,17 @@
 <template>
   <div class="Card">
     <div class="Card__dashboard">
-      <div class="switch">
-        <span class="switch__option switch__option--active">Редактирование</span>
-        <span class="switch__option">Просмотр</span>
-        <div class="switch__handle"></div>
+      <div class="Card__container Card__dashboard-inner">
+        <div class="Card__back-icon"></div>
+        <div class="Card__switch-mode switch">
+          <span class="switch__option switch__option--active">Редактирование</span>
+          <span class="switch__option">Просмотр</span>
+          <div class="switch__handle"></div>
+        </div>
+        <div class="Card__more-icon"></div>
       </div>
     </div>
-    <CardEdit />
+    <CardEdit class="Card__container" />
   </div>
 </template>
 
@@ -27,9 +31,29 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 .Card {
+  &__container {
+    max-width: 750px;
+    margin: 0 auto;
+  }
 
   &__dashboard {
     border-bottom: 2px solid var(--grey-color-body);
+  }
+
+  &__dashboard-inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__switch-mode {
+  }
+
+  &__back-icon {
+    content: url('/assets/icons/arrow-left.svg');
+  }
+
+  &__more-icon {
+    content: url('/assets/icons/dots.svg');
   }
 }
 
@@ -38,7 +62,7 @@ export default class Home extends Vue {}
   display: flex;
   align-items: center;
   justify-content: space-around;
-  max-width: 360px;
+  width: 360px;
   height: 40px;
   margin: 5px auto;
   background-color: var(--grey-color-body);

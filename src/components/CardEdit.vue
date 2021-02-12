@@ -1,13 +1,14 @@
 <template>
   <div class="CardEdit">
-    <nav>
-      <ul class="CardEdit__menu">
+    <div class="CardEdit__menu">
+      <ul class="CardEdit__menu-list">
         <li class="CardEdit__menu-item CardEdit__menu-item--active">Реквизиты</li>
         <li class="CardEdit__menu-item">Банковские реквизиты</li>
         <li class="CardEdit__menu-item">Контактная информация</li>
         <li class="CardEdit__menu-item">Оформление</li>
       </ul>
-    </nav>
+      <div class="CardEdit__save-icon"></div>
+    </div>
     <CompanyDetailsForm />
   </div>
 </template>
@@ -28,27 +29,37 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 .CardEdit {
-  max-width: 720px;
-  margin: 0 auto;
   padding-top: 15px;
 
   &__menu {
     display: flex;
-    justify-content: space-between;
-    margin: 0;
     border-bottom: 2px solid var(--grey-color-body);
-    /* overflow: visible; */
+  }
+
+  &__menu-list {
+    display: flex;
+    justify-content: space-between;
+    width: stretch;
+    margin: 0;
+    padding: 0;
   }
 
   &__menu-item {
     padding: 10px 0;
     color: var(--grey-color-text);
+    list-style: none;
 
     &--active {
       color: black;
       border-bottom: 3px solid var(--yellow-color);
       box-shadow: 0 2px 0 0 var(--yellow-color);
     }
+  }
+
+  &__save-icon {
+    content: url('/assets/icons/check.svg');
+    margin-left: 50px;
+    cursor: pointer;
   }
 }
 </style>

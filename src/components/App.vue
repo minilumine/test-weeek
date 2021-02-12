@@ -14,7 +14,7 @@
         <li class="App__link-to-card">ООАОААО "Кокетка"</li>
       </ul>
       <div class="App__user-miniprofile user-miniprofile">
-        <img src="../assets/avatar.png" alt="" class="user-miniprofile__avatar">
+        <img :src="avatar" alt="" class="user-miniprofile__avatar">
         <span class="user-miniprofile__nickname">Джордж Б.</span>
       </div>
     </div>
@@ -28,12 +28,16 @@ import Component from 'vue-class-component'
 
 import Card from './Card'
 
+import avatar from '/../public/images/avatar.png'
+
 @Component({
   components: {
     Card,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  avatar = avatar
+}
 </script>
 
 <style lang="scss">
@@ -62,7 +66,7 @@ export default class Home extends Vue {}
   &__logo {
     height: 30px;
     margin-bottom: 15px;
-    background: url('/assets/logo.png') no-repeat;
+    background: url('/assets/icons/logo.svg') no-repeat;
   }
 
   &__addNewCard {
@@ -106,8 +110,20 @@ export default class Home extends Vue {}
       margin-right: 5px;
     }
 
+    &::after {
+      content: url('/assets/icons/dots.svg');
+      position: absolute;
+      top: 5px;
+      right: 20px;
+      visibility: hidden;
+    }
+
     &:hover {
       background-color: var(--grey-color-elem);
+
+      &::after {
+        visibility: visible;
+      }
     }
   }
 

@@ -23,7 +23,7 @@
     position: absolute;
     top: 14px;
     left: 16px;
-    color: var(--grey-color-text-body);
+    color: var(--grey-color-text);
     transition: all 0.1s;
   }
 
@@ -41,7 +41,7 @@
     top: 14px;
     width: 20px;
     height: 20px;
-    background-color: var(--grey-color-text-body);
+    background-color: var(--grey-color-text);
     border-radius: 50%;
     cursor: pointer;
 
@@ -60,7 +60,7 @@
     bottom: 30px;
     width: max-content;
     padding: 5px 10px;
-    background-color: var(--grey-color-text-body);
+    background-color: var(--grey-color-text);
     border-radius: 3px;
     color: white;
     font-size: 0.8em;
@@ -76,7 +76,7 @@
       height: 10px;
       border-radius: 2px;
       transform: rotate(45deg);
-      background-color: var(--grey-color-text-body);
+      background-color: var(--grey-color-text);
     }
   }
 

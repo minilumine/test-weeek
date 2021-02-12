@@ -2,6 +2,7 @@ const path = require('path')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
@@ -38,6 +39,10 @@ module.exports = {
     writeToDisk: true,
     inline: true,
     hot: true,
+  },
+  optimization: {
+    minimize: isProd,
+    minimizer: [new TerserWebpackPlugin()],
   },
 
   plugins: [

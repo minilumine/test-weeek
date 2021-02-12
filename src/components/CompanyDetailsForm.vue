@@ -23,16 +23,8 @@
 <script>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { ValidationObserver, ValidationProvider } from 'vee-validate'
 
-import '@/utils/CompanyDetailsForm-validate'
-
-@Component({
-  components: {
-    ValidationObserver,
-    ValidationProvider,
-  },
-})
+@Component
 export default class CompanyDetailsForm extends Vue {
   output = {}
 
