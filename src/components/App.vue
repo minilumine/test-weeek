@@ -35,7 +35,7 @@ import avatar from '/../public/images/avatar.png'
     Card,
   },
 })
-export default class Home extends Vue {
+export default class App extends Vue {
   avatar = avatar
 }
 </script>

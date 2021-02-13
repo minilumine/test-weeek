@@ -2,11 +2,20 @@
   <div class="CardEdit">
     <div class="CardEdit__menu">
       <ul class="CardEdit__menu-list">
-        <li class="CardEdit__menu-item CardEdit__menu-item--active">Реквизиты</li>
-        <li class="CardEdit__menu-item">Банковские реквизиты</li>
-        <li class="CardEdit__menu-item">Контактная информация</li>
-        <li class="CardEdit__menu-item">Оформление</li>
+        <li
+          v-for="(value, key) in menuList"
+          :key="key"
+          class="CardEdit__menu-item"
+          :class="[
+            `CardEdit__link-to-${key}`,
+            { 'CardEdit__menu-item--active': key === activeMenuItem }
+          ]"
+          @click="activeMenuItem = key"
+        >
+          {{ value }}
+        </li>
       </ul>
+      <div class="CardEdit__menu-mark"></div>
       <div class="CardEdit__save-icon"></div>
     </div>
     <CompanyDetailsForm />
@@ -23,8 +32,31 @@ import CompanyDetailsForm from './CompanyDetailsForm'
   components: {
     CompanyDetailsForm,
   },
+  watch: {
+    activeMenuItem(item) { 
+      const menuItemElem = document.querySelector(`.CardEdit__link-to-${item}`)
+      const menuMarkElem = document.querySelector('.CardEdit__menu-mark')
+
+      menuMarkElem.style.cssText = `left: ${menuItemElem.offsetLeft}px; width: ${menuItemElem.offsetWidth}px;`
+    }
+  }
 })
-export default class Home extends Vue {}
+export default class CardEdit extends Vue {
+  menuList = {
+    companyDetails: 'Реквизиты',
+    bankDedails: 'Банковские реквизиты',
+    contactInfo: 'Контактная информация',
+    registration: 'Оформление',
+  }
+
+  activeMenuItem = ''
+
+  mounted() {
+    setTimeout(() => {
+      this.activeMenuItem = 'companyDetails'
+    }, 200)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +64,7 @@ export default class Home extends Vue {}
   padding-top: 15px;
 
   &__menu {
+    position: relative;
     display: flex;
     border-bottom: 2px solid var(--grey-color-body);
   }
@@ -45,15 +78,25 @@ export default class Home extends Vue {}
   }
 
   &__menu-item {
+    position: relative;
     padding: 10px 0;
     color: var(--grey-color-text);
     list-style: none;
+    transition: 0.1s;
 
     &--active {
       color: black;
-      border-bottom: 3px solid var(--yellow-color);
-      box-shadow: 0 2px 0 0 var(--yellow-color);
     }
+  }
+
+  &__menu-mark {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 5px;
+    background-color: var(--yellow-color);
+    transition: 0.2s;
   }
 
   &__save-icon {

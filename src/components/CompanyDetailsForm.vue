@@ -1,7 +1,7 @@
 <template>
   <form class="CompanyDetailsForm form">
     <label
-      class="form__elem"
+      class="form__field"
       v-for="{ name, label, tip } of structure"
       :key="name"
       :style="{ 'grid-area': name }"

@@ -40,7 +40,7 @@ import CardEdit from './CardEdit'
     CardEdit,
   },
 })
-export default class Home extends Vue {
+export default class Card extends Vue {
   activeMode = 'edit' // or view
 
   get switchPosition() {
@@ -84,6 +84,7 @@ export default class Home extends Vue {
   width: 360px;
   height: 40px;
   margin: 5px auto;
+  padding: 5px;
   background-color: var(--grey-color-body);
   border-radius: 10px;
   transition: 0.1s;
