@@ -3,10 +3,24 @@
     <div class="Card__dashboard">
       <div class="Card__container Card__dashboard-inner">
         <div class="Card__back-icon"></div>
-        <div class="Card__switch-mode switch">
-          <span class="switch__option switch__option--active">Редактирование</span>
-          <span class="switch__option">Просмотр</span>
-          <div class="switch__handle"></div>
+        <div
+          class="Card__switch-mode switch"
+          :class="['switch--position--' + switchPosition]"
+        >
+          <span
+            class="switch__option"
+            :class="{ 'switch__option--active': activeMode === 'edit' }"
+            @click="activeMode = 'edit'"
+          >
+            Редактирование
+          </span>
+          <span
+            class="switch__option"
+            :class="{ 'switch__option--active': activeMode === 'view' }"
+            @click="activeMode = 'view'"
+          >
+            Просмотр
+          </span>
         </div>
         <div class="Card__more-icon"></div>
       </div>
@@ -26,7 +40,13 @@ import CardEdit from './CardEdit'
     CardEdit,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  activeMode = 'edit' // or view
+
+  get switchPosition() {
+    return this.activeMode === 'edit' ? 'left' : 'right'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -61,32 +81,45 @@ export default class Home extends Vue {}
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-around;
   width: 360px;
   height: 40px;
   margin: 5px auto;
   background-color: var(--grey-color-body);
   border-radius: 10px;
+  transition: 0.1s;
 
-  &__option {
-    z-index: 2;
-    color: var(--grey-color-text);
-
-    &--active {
-      color: black;
-    }
-  }
-
-  &__handle {
-    z-index: 1;
+  &::before {
+    content: '';
     position: absolute;
+    display: inline;
+    z-index: 1;
     top: 4px;
-    left: 6px;
     width: 50%;
     height: 30px;
     border-radius: 7px;
     background-color: white;
     box-shadow: 0 2px 3px #e8e8e8;
+    transition: inherit;
+  }
+
+  &--position--left::before {
+    left: 5px;
+  }
+
+  &--position--right::before {
+    left: calc(50% - 5px);
+  }
+
+  &__option {
+    z-index: 2;
+    flex-basis: 50%;
+    color: var(--grey-color-text);
+    text-align: center;
+    transition: inherit;
+
+    &--active {
+      color: black;
+    }
   }
 }
 </style>
