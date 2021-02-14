@@ -1,34 +1,36 @@
 <template>
-  <form class="CompanyDetailsForm form">
-    <ValidationProvider
-      v-for="{ id, key, name, tip, rules } of structure"
-      :key="key"
-      v-slot="{ errors }"
-      :rules="rules"
-      :style="{ 'grid-area': key }"
-      class="form__field-wrapper"
-    >
-      <input
-        v-model="output[key]"
-        :id="id"
-        :name="name"
-        type="text"
-        class="form__field"
-        :class="{ 
-          'form__field--invalid': errors.length > 0,
-          'form__field--no-empty': output[key].length > 0 
-        }"
-      />
-      <label class="form__field-name" :for="id">
-        {{ name }}
-        <span class="form__field-error">{{ errors[0] }}</span>
-      </label>
+  <ValidationObserver v-slot="{ invalid }">
+    <form class="CompanyDetailsForm form">
+      <ValidationProvider
+        v-for="{ id, key, name, tip, rules } of structure"
+        :key="key"
+        v-slot="{ errors }"
+        :rules="rules"
+        :style="{ 'grid-area': key }"
+        class="form__field field"
+      >
+        <input
+          v-model="output[key]"
+          :id="id"
+          :name="name"
+          type="text"
+          class="field__input"
+          :class="{
+            'form__field--invalid': errors.length > 0,
+            'form__field--no-empty': output[key].length > 0,
+          }"
+        />
+        <label class="field__label" :for="id">
+          {{ name }}
+          <span class="field__error">{{ errors[0] }}</span>
+        </label>
 
-      <div class="form__help-icon" v-if="tip">
-        <div class="form__tooltip">{{ tip }}</div>
-      </div>
-    </ValidationProvider>
-  </form>
+        <div class="field__help-icon" v-if="tip">
+          <div class="field__tooltip">{{ tip }}</div>
+        </div>
+      </ValidationProvider>
+    </form>
+  </ValidationObserver>
 </template>
 
 <script>

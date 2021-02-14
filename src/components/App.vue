@@ -2,41 +2,39 @@
   <div class="App">
     <div class="App__sidebar">
       <div>
-        <div class="App__logo"></div>
+        <router-link to="/"><div class="App__logo"></div></router-link>
         <button class="App__addNewCard">Новая карточка</button>
       </div>
       <div>
         <input type="text" class="App__cardSearch" placeholder="Поиск" />
       </div>
       <ul class="App__list-of-cards">
-        <li class="App__link-to-card">ОАО "Ромашка"</li>
-        <li class="App__link-to-card">ООО "Белый лебедь"</li>
-        <li class="App__link-to-card">ООАОААО "Кокетка"</li>
+        <li class="App__link-to-card" v-for="{ id, name } of listOfCards" :key="id">
+          <router-link :to="{ path: '/card', query: { id } }">{{ name }}</router-link>
+        </li>
       </ul>
       <div class="App__user-miniprofile user-miniprofile">
-        <img :src="avatar" alt="" class="user-miniprofile__avatar">
+        <img :src="avatar" alt="" class="user-miniprofile__avatar" />
         <span class="user-miniprofile__nickname">Джордж Б.</span>
       </div>
     </div>
-    <Card />
+    <router-view></router-view>
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import { v4 as uuid } from 'uuid'
 
-import Card from './Card'
-
-import avatar from '/../public/images/avatar.png'
-
-@Component({
-  components: {
-    Card,
-  },
-})
+@Component
 export default class App extends Vue {
-  avatar = avatar
+  avatar = require('/../public/images/avatar.png')
+
+  listOfCards = [
+    { id: uuid(), name: 'ОАО "Ромашка"' },
+    { id: uuid(), name: 'ООО "Белый лебедь"' },
+    { id: uuid(), name: 'ООАОААО "Кокетка"' },
+  ]
 }
 </script>
 
@@ -124,6 +122,14 @@ export default class App extends Vue {
       &::after {
         visibility: visible;
       }
+    }
+
+    a {
+      display: inline-block;
+      width: 80%;
+      height: 100%;
+      color: black;
+      text-decoration: none;
     }
   }
 

@@ -1,13 +1,13 @@
 .form {
   display: grid;
   gap: 20px 10px;
+}
 
-  &__field-wrapper {
-    position: relative;
-    display: block;
-  }
+.field {
+  position: relative;
+  display: block;
 
-  &__field {
+  &__input {
     width: 100%;
     padding: 24px 16px 8px 16px;
     border: none;
@@ -23,7 +23,7 @@
     }
   }
 
-  &__field-name {
+  &__label {
     position: absolute;
     top: 14px;
     left: 16px;
@@ -31,13 +31,13 @@
     transition: all 0.1s;
   }
 
-  &__field-error {
+  &__error {
     margin-left: 5px;
     color: red;
   }
 
-  &__field:focus ~ &__field-name,
-  &__field--no-empty ~ &__field-name {
+  &__input:focus ~ &__label,
+  &__input--no-empty ~ &__label {
     top: 7px;
     font-size: 0.8em;
   }
@@ -59,7 +59,6 @@
       position: absolute;
       left: 7px;
       color: var(--grey-color-body);
-
     }
   }
 

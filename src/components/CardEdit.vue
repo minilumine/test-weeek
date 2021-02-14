@@ -18,7 +18,7 @@
       <div class="CardEdit__menu-mark"></div>
       <div class="CardEdit__save-icon"></div>
     </div>
-    <CompanyDetailsForm />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -26,12 +26,9 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-import CompanyDetailsForm from './CompanyDetailsForm'
+// import CompanyDetailsForm from './CompanyDetailsForm'
 
 @Component({
-  components: {
-    CompanyDetailsForm,
-  },
   watch: {
     activeMenuItem(item) { 
       const menuItemElem = document.querySelector(`.CardEdit__link-to-${item}`)

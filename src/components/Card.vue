@@ -3,10 +3,7 @@
     <div class="Card__dashboard">
       <div class="Card__container Card__dashboard-inner">
         <div class="Card__back-icon"></div>
-        <div
-          class="Card__switch-mode switch"
-          :class="['switch--position--' + switchPosition]"
-        >
+        <div class="Card__switch-mode switch" :class="['switch--position--' + switchPosition]">
           <span
             class="switch__option"
             :class="{ 'switch__option--active': activeMode === 'edit' }"
@@ -25,25 +22,36 @@
         <div class="Card__more-icon"></div>
       </div>
     </div>
-    <CardEdit class="Card__container" />
+    <router-view class="Card__container"></router-view>
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
-import CardEdit from './CardEdit'
+import Router from '@/router'
 
-@Component({
-  components: {
-    CardEdit,
-  },
-})
+@Component
 export default class Card extends Vue {
-  activeMode = 'edit' // or view
 
-  get switchPosition() {
+  @Prop(String)
+  readonly id!: string
+
+  get activeMode():string {
+    /* 
+      card/edit
+      card/view
+           ^
+      123..6
+    */
+    return Router.currentRoute.path.slice(6)
+  }
+
+  set activeMode(value) {
+    Router.push({ name: 'card-' + value })
+  }
+
+  get switchPosition(): string {
     return this.activeMode === 'edit' ? 'left' : 'right'
   }
 }

@@ -71,7 +71,7 @@ module.exports = {
       {
         test: /\.[jt]s$/,
         loader: 'babel-loader',
-        exclude: (file) => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
