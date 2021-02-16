@@ -1,11 +1,10 @@
 const path = require('path')
 
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-// const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const DotENVWebpack = require('dotenv-webpack')
 const { VueLoaderPlugin } = require('vue-loader')
@@ -15,27 +14,31 @@ require('dotenv').config()
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
+function pathHelper(...pathArray) {
+  return path.resolve(__dirname, ...pathArray)
+}
+
 module.exports = {
   target: 'web',
 
-  entry: path.resolve(__dirname, 'src/app.js'),
+  entry: pathHelper('src/main.ts'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: pathHelper('dist'),
   },
 
-  context: path.resolve(__dirname, 'src'),
+  context: pathHelper('src'),
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      vue$: 'vue/dist/vue.runtime.esm.js',
+      '@': pathHelper('src'),
+      vue$: isDev ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.esm.js',
     },
   },
 
   mode: process.env.NODE_ENV,
   devtool: isDev ? 'cheap-module-source-map' : false,
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: pathHelper('dist'),
     writeToDisk: true,
     inline: true,
     hot: true,
@@ -46,18 +49,9 @@ module.exports = {
   },
 
   plugins: [
-    new HTMLWebpackPlugin({ template: path.resolve(__dirname, 'src/index.html') }),
-    /* friendly-errors-webpack-plugin does not allow to work hot reload */
-    new MiniCSSExtractPlugin(),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, 'public/icons'),
-    //       to: path.resolve(__dirname, 'dist/icons'),
-    //     },
-    //   ],
-    // }),
+    new HTMLWebpackPlugin({ template: pathHelper('src/index.html') }),
+    new MiniCSSExtractPlugin({ filename: 'styles.css' }),
     new DotENVWebpack(),
     new VueLoaderPlugin(),
   ],
@@ -69,26 +63,42 @@ module.exports = {
         loader: 'vue-loader',
       },
       {
-        test: /\.[jt]s$/,
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: { appendTsSuffixTo: [/\.vue$/] },
+      },
+      {
+        test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: (file) => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+      },
+      {
+        test: /\.pug$/,
+        oneOf: [
+          {
+            resourceQuery: /^\?vue/,
+            use: ['pug-plain-loader'],
+          },
+          {
+            use: ['raw-loader', 'pug-plain-loader'],
+          },
+        ],
       },
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader', // if idProd MiniCSSExtractPlugin.loader
-          /* 
+          isDev ? 'vue-style-loader' : MiniCSSExtractPlugin.loader,
+          /*
             vue-style-loader is not alternative to style-loader,
             without which сss are not added to html
           */
           'style-loader',
           'css-loader',
           'sass-loader',
-          'postcss-loader',
         ],
       },
       {
-        test: /\.(svg|png|jpe?g)$/,
+        test: /\.(svg|png|gif|jpe?g)$/,
         type: 'asset/resource',
         generator: {
           filename: 'icons/[name][ext]',

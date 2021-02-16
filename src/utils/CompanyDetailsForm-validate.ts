@@ -9,13 +9,14 @@ extend('required', {
 extend('digits', {
   ...digits,
   message: (fieldName, { length, _value_: value }) => {
-    if (isNaN(Number(value))) return 'Тут должны быть только циферки'
+    if (Number.isNaN(Number(value))) return 'Тут должны быть только циферки'
     if (value.length < length) return 'Тут должно быть побольше циферок'
     if (value.length > length) return 'Тут должно быть поменьше циферок'
+    return ''
   },
 })
 
 extend('string', (value) => {
   if (/\d/.test(value)) return 'Наврятли в названии вашей компании присутсвуют цифры'
-  else return true
+  return true
 })

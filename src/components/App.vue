@@ -1,34 +1,10 @@
-<template>
-  <div class="App">
-    <div class="App__sidebar">
-      <div>
-        <router-link to="/"><div class="App__logo"></div></router-link>
-        <button class="App__addNewCard">Новая карточка</button>
-      </div>
-      <div>
-        <input type="text" class="App__cardSearch" placeholder="Поиск" />
-      </div>
-      <ul class="App__list-of-cards">
-        <li class="App__link-to-card" v-for="{ id, name } of listOfCards" :key="id">
-          <router-link :to="{ path: '/card', query: { id } }">{{ name }}</router-link>
-        </li>
-      </ul>
-      <div class="App__user-miniprofile user-miniprofile">
-        <img :src="avatar" alt="" class="user-miniprofile__avatar" />
-        <span class="user-miniprofile__nickname">Джордж Б.</span>
-      </div>
-    </div>
-    <router-view></router-view>
-  </div>
-</template>
-
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { v4 as uuid } from 'uuid'
 
 @Component
 export default class App extends Vue {
-  avatar = require('/../public/images/avatar.png')
+  avatar = require('@/assets/avatar.png')
 
   listOfCards = [
     { id: uuid(), name: 'ОАО "Ромашка"' },
@@ -37,6 +13,34 @@ export default class App extends Vue {
   ]
 }
 </script>
+
+<template>
+  <div class="App">
+    <div class="App__sidebar">
+      <div>
+        <router-link to="/">
+          <div class="App__logo"></div>
+        </router-link>
+        <button class="App__addNewCard">Новая карточка</button>
+      </div>
+      <div>
+        <input type="text" class="App__cardSearch" placeholder="Поиск" />
+      </div>
+      <ul class="App__list-of-cards">
+        <li v-for="{ id, name } of listOfCards" :key="id" class="App__link-to-card">
+          <router-link :to="{ path: '/card', query: { id } }">
+            {{ name }}
+          </router-link>
+        </li>
+      </ul>
+      <div class="App__user-miniprofile user-miniprofile">
+        <img :src="avatar" alt="" class="user-miniprofile__avatar" />
+        <span class="user-miniprofile__nickname">Джордж Б.</span>
+      </div>
+    </div>
+    <router-view />
+  </div>
+</template>
 
 <style lang="scss">
 .App {
@@ -89,7 +93,7 @@ export default class App extends Vue {
   }
 
   &__list-of-cards {
-    height: stretch;
+    height: 100%;
     margin: 0;
     padding: 20px 0;
   }

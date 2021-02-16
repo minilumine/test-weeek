@@ -1,7 +1,8 @@
 declare module '*.vue' {
-  import Vue from 'vue';
-  
-  export default Vue;
+  import Vue from 'vue'
+
+  export default Vue
 }
 
-declare function require(string): string;
+/* eslint-disable no-unused-vars */
+declare function require(string): string

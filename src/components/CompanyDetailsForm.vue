@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ invalid }">
+  <ValidationObserver>
     <form class="CompanyDetailsForm form">
       <ValidationProvider
         v-for="{ id, key, name, tip, rules } of structure"
@@ -10,14 +10,14 @@
         class="form__field field"
       >
         <input
-          v-model="output[key]"
           :id="id"
+          v-model="output[key]"
           :name="name"
           type="text"
           class="field__input"
           :class="{
-            'form__field--invalid': errors.length > 0,
-            'form__field--no-empty': output[key].length > 0,
+            'field__input--invalid': errors.length > 0,
+            'field__input--no-empty': output[key].length > 0,
           }"
         />
         <label class="field__label" :for="id">
@@ -25,8 +25,10 @@
           <span class="field__error">{{ errors[0] }}</span>
         </label>
 
-        <div class="field__help-icon" v-if="tip">
-          <div class="field__tooltip">{{ tip }}</div>
+        <div v-if="tip" class="field__help-icon">
+          <div class="field__tooltip">
+            {{ tip }}
+          </div>
         </div>
       </ValidationProvider>
     </form>
@@ -57,7 +59,12 @@ export default class CompanyDetailsForm extends Vue {
       tip: 'Это про налоги',
       rules: { required: true, digits: 12 },
     },
-    { key: 'bik', name: 'БИК', tip: 'Не в курсах', rules: { digits: 10 } },
+    {
+      key: 'bik',
+      name: 'БИК',
+      tip: 'Не в курсах',
+      rules: { digits: 10 },
+    },
     {
       key: 'fullName',
       name: 'Полное наименование организации',

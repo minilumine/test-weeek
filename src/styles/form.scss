@@ -18,7 +18,7 @@
       outline: var(--yellow-color);
     }
 
-    &--invalid {
+    &--invalid:not(:focus) {
       box-shadow: inset 0 0 0 2px red;
     }
   }

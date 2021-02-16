@@ -1,3 +1,34 @@
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component({
+  watch: {
+    activeMenuItem(item) {
+      const menuItemElem = <HTMLElement>document.querySelector(`.CardEdit__link-to-${item}`)
+      const menuMarkElem = <HTMLElement>document.querySelector('.CardEdit__menu-mark')
+
+      menuMarkElem.style.cssText = `left: ${menuItemElem.offsetLeft}px; width: ${menuItemElem.offsetWidth}px;`
+    },
+  },
+})
+export default class CardEdit extends Vue {
+  menuList = {
+    companyDetails: 'Реквизиты',
+    bankDedails: 'Банковские реквизиты',
+    contactInfo: 'Контактная информация',
+    registration: 'Оформление',
+  }
+
+  activeMenuItem: string = ''
+
+  mounted() {
+    setTimeout(() => {
+      this.activeMenuItem = 'companyDetails'
+    }, 200)
+  }
+}
+</script>
+
 <template>
   <div class="CardEdit">
     <div class="CardEdit__menu">
@@ -8,7 +39,7 @@
           class="CardEdit__menu-item"
           :class="[
             `CardEdit__link-to-${key}`,
-            { 'CardEdit__menu-item--active': key === activeMenuItem }
+            { 'CardEdit__menu-item--active': key === activeMenuItem },
           ]"
           @click="activeMenuItem = key"
         >
@@ -18,45 +49,11 @@
       <div class="CardEdit__menu-mark"></div>
       <div class="CardEdit__save-icon"></div>
     </div>
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
-
-// import CompanyDetailsForm from './CompanyDetailsForm'
-
-@Component({
-  watch: {
-    activeMenuItem(item) { 
-      const menuItemElem = document.querySelector(`.CardEdit__link-to-${item}`)
-      const menuMarkElem = document.querySelector('.CardEdit__menu-mark')
-
-      menuMarkElem.style.cssText = `left: ${menuItemElem.offsetLeft}px; width: ${menuItemElem.offsetWidth}px;`
-    }
-  }
-})
-export default class CardEdit extends Vue {
-  menuList = {
-    companyDetails: 'Реквизиты',
-    bankDedails: 'Банковские реквизиты',
-    contactInfo: 'Контактная информация',
-    registration: 'Оформление',
-  }
-
-  activeMenuItem = ''
-
-  mounted() {
-    setTimeout(() => {
-      this.activeMenuItem = 'companyDetails'
-    }, 200)
-  }
-}
-</script>
-
-<style lang="scss" scoped>
+<style lang="scss">
 .CardEdit {
   padding-top: 15px;
 
@@ -69,7 +66,7 @@ export default class CardEdit extends Vue {
   &__menu-list {
     display: flex;
     justify-content: space-between;
-    width: stretch;
+    width: 100%;
     margin: 0;
     padding: 0;
   }

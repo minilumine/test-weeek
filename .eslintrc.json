@@ -5,8 +5,11 @@
     "node": true
   },
   "extends": [
-    "plugin:vue/vue3-essential",
-    "plugin:prettier/recommended",
+    "plugin:vue/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:prettier-vue/recommended",
     "airbnb-base"
   ],
   "ignorePatterns": ".gitignore",
@@ -18,14 +21,31 @@
       }
     }
   ],
+  "parser": "vue-eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 12,
     "sourceType": "module",
-    "parser": "@babel/eslint-parser"
+    "parser": "@typescript-eslint/parser"
   },
-  "plugins": ["vue", "jest", "prettier"],
   "rules": {
     "semi": 0,
+    "global-require": 0,
+    "no-console": 0,
+    "no-debugger": 0,
+    "no-plusplus": 0,
+    "no-restricted-syntax": 0,
+    "vue/component-tags-order": ["error", {
+      "order": [ [ "script", "template" ], "style" ]
+    }],
+    "vue/html-self-closing": ["error", {
+      "html": { "normal": "never", "void": "always"}
+    }],
+    "vue/max-attributes-per-line": ["error", {
+      "singleline": 5,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }]
   },
   "settings": {
     "import/resolver": "webpack"
